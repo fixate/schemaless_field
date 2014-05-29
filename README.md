@@ -25,11 +25,11 @@ class Item < ActiveRecord::Base # Any class with a json string or hash can be us
   after_initialize :set_data
 
   json_attr :data do
-    f.field :color, '$..color' # explicit path
+    f.field :color, '$..color' # explicit path (not required)
     f.field :array             # implicit path
     f.field :nested_field      # nested implicit path i.e: $..nested.field
 
-    f.first_name, '$..things[0]' # explicit path
+    f.first_thing, '$..things[0]' # explicit path
   end
 
   private
