@@ -5,9 +5,6 @@ module SchemalessField
     def initialize(model, model_attr)
       @model = model
       @model_attr = model_attr
-
-      raise RuntimeError, "#{model} does not have attribute #{model_attr}." \
-        unless model.method_defined?(model_attr)
     end
 
     def field(attribute, path = nil)

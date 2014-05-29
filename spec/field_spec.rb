@@ -28,12 +28,6 @@ describe SchemalessField::Field do
     expect(subject).to respond_to(:"foo=")
   end
 
-  it 'raises error if class does not have attribute' do
-    expect {
-      described_class.new(Dummy, :not_very_existing)
-    }.to raise_error
-  end
-
   it 'returns nil if path doesnt exist' do
     field.field :not_existing_path
     expect(subject.not_existing_path).to be_nil
