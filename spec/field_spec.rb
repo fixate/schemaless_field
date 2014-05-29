@@ -9,7 +9,12 @@ class Dummy
       bar: '!!!',
       nested: {
         quite: 'deep'
-      }
+      },
+      complex: [
+        # These MUST BE string keys
+        {'name' => 'another', 'value' => 100},
+        {'name' => 'test', 'value' => 123}
+      ]
     }
   end
 end
@@ -31,6 +36,11 @@ describe SchemalessField::Field do
   it 'returns nil if path doesnt exist' do
     field.field :not_existing_path
     expect(subject.not_existing_path).to be_nil
+  end
+
+  it 'returns value from complex path' do
+    field.field :complex, '$..complex[?(@.name=="test")].value'
+    expect(subject.complex).to eq(123)
   end
 
   describe 'implicit path' do
