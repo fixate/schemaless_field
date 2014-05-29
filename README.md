@@ -1,6 +1,7 @@
 # SchemalessField
 
-TODO: Write a gem description
+Basic accessor methods for schemaless ORM fields.
+For e.g. a JSON field in Postgres.
 
 ## Installation
 
@@ -18,7 +19,47 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+
+class Item < ActiveRecord::Base # Any class with a json string or hash can be used
+  after_initialize :set_data
+
+  json_attr :data do
+    f.field :color, '$..color' # explicit path
+    f.field :array             # implicit path
+    f.field :nested_field      # nested implicit path i.e: $..nested.field
+
+    f.first_name, '$..things[0]' # explicit path
+  end
+
+  private
+
+  def set_data
+    self.data ||= {
+      color: 'red',
+      nested: {
+        field: true
+      },
+      things: [
+        {name: 'car'},
+        {name: 'laptop'}
+      ]
+    }
+  end
+
+end
+```
+
+Now some field accessors will be available
+
+```ruby
+
+  item = Item.new
+  item.color #= "red"
+  item.color = "blue" # data = { 'color' => 'blue', ... }
+  item.nested_field # true
+  item.first_thing # "car"
+```
 
 ## Contributing
 
