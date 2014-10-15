@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-class Dummy
+class FieldDummy
   attr_accessor :data
 
   def initialize
@@ -20,7 +20,7 @@ class Dummy
 end
 
 describe SchemalessField::Field do
-  subject { Dummy.new }
+  subject { FieldDummy.new }
   let(:field) { described_class.new(subject.class, :data) }
 
   before { field.field :foo, '$..foo' }

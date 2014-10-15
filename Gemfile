@@ -7,4 +7,6 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'guard-rubocop'
   gem 'guard-bundler'
+
+  gem 'byebug'
 end

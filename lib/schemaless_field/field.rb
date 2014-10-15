@@ -14,20 +14,20 @@ module SchemalessField
       mod.class_eval <<-RUBY, __FILE__, __LINE__ + 1
         # Getter
         def #{attribute}
-          ::JsonPath.on(json__#{attribute}, '#{path}')[0]
+          ::JsonPath.on(json__#{@model_attr}, '#{path}')[0]
         end
 
         # Setter
         def #{attribute}=(value)
           self.#{@model_attr} = ::JsonPath
-            .for(json__#{attribute})
+            .for(json__#{@model_attr})
             .gsub('#{path}') { |v| value }
             .to_hash
         end
 
         private
 
-        def json__#{attribute}
+        def json__#{@model_attr}
           val = self.send(:#{@model_attr})
           case val
           when String

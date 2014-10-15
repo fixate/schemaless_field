@@ -9,8 +9,3 @@ require 'active_support/core_ext/hash'
 
 require 'railtie' if defined?(Rails)
 
-module SchemalessField
-  def self.eager_load!
-
-  end
-end

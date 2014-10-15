@@ -24,7 +24,7 @@ Or install it yourself as:
 class Item < ActiveRecord::Base # Any class with a json string or hash can be used
   after_initialize :set_data
 
-  json_attr :data do
+  schemaless_field :data do
     f.field :color, '$..color' # explicit path (not required)
     f.field :array             # implicit path
     f.field :nested_field      # nested implicit path i.e: $..nested.field
